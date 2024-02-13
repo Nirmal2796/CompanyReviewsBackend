@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json({extended:false}));
 
 app.use(ReviewRouter);
-app.use(CompanyRouter);
+// app.use(CompanyRouter);
 
 Review.belongsTo(Company);
 
