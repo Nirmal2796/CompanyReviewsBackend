@@ -12,6 +12,12 @@ const Review=sequelize.define('review',{
     rating:{
         type:Sequelize.INTEGER,
         allowNull:false
+    },
+    pros:{
+        type:Sequelize.STRING,
+    },
+    cons:{
+        type:Sequelize.STRING,
     }
 });
 

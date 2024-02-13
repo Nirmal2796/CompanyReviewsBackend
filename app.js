@@ -23,7 +23,9 @@ app.use(CompanyRouter);
 
 Review.belongsTo(Company);
 
-sequelize.sync()
+sequelize
+// .sync({force:true})
+.sync()
 .then(result=>{
     app.listen(3000);
 })

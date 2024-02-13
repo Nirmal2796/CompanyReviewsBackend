@@ -8,21 +8,40 @@ exports.postReview=(req,res,next)=>{
     const cons = req.body.cons;
     const rating =req.body.rating;
 
-    Company.create({
-        name:cname
-    })
+     Company.findOne({where:{name:cname}})
     .then(res=>{
-       return Company.findOne({where:{name:cname}});
+        if(res){ // if company name already existed
+            return res;
+        }
+        else{
+             return Company.create({ // new company added
+                name: cname
+            })
+        }
     })
-    .then(res=>{
+    .then(company=>{
         return Review.create({
             pros:pros,
             cons:cons,
-            rating:rating
+            rating:rating,
+            companyId:company.id
         });
     })
-    .then(res=>{
-        res.redirect('/');
+    .then(result=>{
+        res.status(200).json(result);
     })
     .catch(err=>console.log(err));    
+}
+
+
+exports.getCompany=(req,res,next)=>{
+    const cname=req.params.name;
+    Company.findOne({where:{name: cname}})
+    .then((company)=>{
+        return Review.findAll({where:{companyId : company.id}})
+    })
+    .then(reviews=>{
+        res.status(200).json(reviews);
+    })
+    .catch(err=> console.log(err));
 }

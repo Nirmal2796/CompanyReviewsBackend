@@ -5,7 +5,7 @@ const CompanyController=require('../controller/company');
 const router=express.Router();
 
 
-router.get('/comapny-review/:name',CompanyController.getCompany);
+// router.get('/comapny-review/:name',CompanyController.getCompany);
 
 
 module.exports=router;
