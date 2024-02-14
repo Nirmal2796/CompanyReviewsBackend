@@ -38,10 +38,22 @@ exports.getCompany=(req,res,next)=>{
     const cname=req.params.name;
     Company.findOne({where:{name: cname}})
     .then((company)=>{
-        return Review.findAll({where:{companyId : company.id}})
+        if(company){
+
+            return Review.findAll({where:{companyId : company.id}})
+        }
+        else{
+            return null;
+        }
     })
     .then(reviews=>{
-        res.status(200).json(reviews);
+        if(reviews){
+
+            res.status(200).json(reviews);
+        }
+        else{
+            res.json(reviews);
+        }
     })
     .catch(err=> console.log(err));
 }
